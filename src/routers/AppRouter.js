@@ -1,11 +1,14 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory';
 import ExpenseDashboardPage from './../components/ExpenseDashboardPage';
 import AddExpensePage from './../components/AddExpensePage';
 import EditExpensePage from './../components/EditExpensePage';
 import HelpPage from './../components/HelpPage';
 import NotFoundPage from './../components/NotFoundPage';
 import Header from './../components/Header';
+import LoginPage from './../components/LoginPage';
+import PrivateRoute from './PrivateRoute';
 
 
 //React passes props to the components inside of Route
@@ -20,19 +23,23 @@ import Header from './../components/Header';
 //   when using redux,no props are passed,Instead they interact wih global state container 
 //   for get or set values
 // Props are perfectly valid if the compnents are actually using it
+
+export const history = createHistory();
+
 const AppRouter = () => (
-    <BrowserRouter>
+    <Router history={history}>
         <div>
             <Header />
             <Switch>
-                <Route path="/" component={ExpenseDashboardPage} exact={true} />
-                <Route path="/create" component={AddExpensePage} />
-                <Route path="/edit/:id" component={EditExpensePage} />
+                <Route path="/" component={LoginPage} exact={true} />
+                <PrivateRoute path="/dashboard" component={ExpenseDashboardPage} />
+                <PrivateRoute path="/create" component={AddExpensePage} />
+                <PrivateRoute path="/edit/:id" component={EditExpensePage} />
                 <Route path="/help" component={HelpPage} />
                 <Route component={NotFoundPage} />
             </Switch>
         </div>
-    </BrowserRouter>
+    </Router>
 );
 
 export default AppRouter;
