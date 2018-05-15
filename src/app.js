@@ -12,6 +12,7 @@ import 'normalize.css/normalize.css';
 import './styles/styles.scss';
 import 'react-dates/lib/css/_datepicker.css';
 import { firebase } from './firebase/firebase';
+import LoadingPage from './components/LoadingPage';
 //import './playground/promises';
 
 const store = configureStore();
@@ -42,7 +43,7 @@ const renderApp = () => {
 }
 
 // We can pass JSX into a component and that can access it via props.children
-ReactDOM.render(<p>Loading...</p>, document.getElementById('app'));
+ReactDOM.render(<LoadingPage/>, document.getElementById('app'));
 
 
 
